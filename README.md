@@ -2,7 +2,7 @@
 Does your kubernetes cluster have lots of instances of pods like this?:
 
 ```
-11:40:58 $ kubectl get pods --namespace=thoughtdata
+$ kubectl get pods --namespace=thoughtdata
 NAME                               READY     STATUS    RESTARTS   AGE
 NAME                           READY     STATUS    RESTARTS   AGE
 dashboard-1154738117-d78t5     1/1       Running   0          19h
@@ -32,31 +32,29 @@ Well now you can, with kube-superlog.
 Simply do `npm install -g kube-superlog` and off you go.
 
 ```
-11:45:12 $ kube-superlog --namespace thoughtdata --label app=dashboard --label app=distribution --label app=gateway
+$ ./bin/kube-superlog --namespace thoughtdata --label app=dashboard --label app=distribution --label app=gateway
   superlog Welcome to kube-superlog +0ms
-  superlog Logging for namespace=thoughtdata +2ms
-  superlog Logging the following labels: +1ms
-  superlog  - app=dashboard +0ms
+  superlog Logging for namespace=thoughtdata +3ms
+  superlog Logging the following labels: +0ms
+  superlog  - app=dashboard +1ms
   superlog  - app=distribution +0ms
   superlog  - app=gateway +0ms
-  superlog Please wait, loading pod list. +36ms
-  superlog:exec kubectl --namespace=thoughtdata get pods -l app=gateway --no-headers -o json -l app=dashboard --no-headers -o json +1ms
-  superlog:exec kubectl --namespace=thoughtdata get pods -l app=gateway --no-headers -o json -l app=distribution --no-headers -o json +3ms
-  superlog:exec kubectl --namespace=thoughtdata get pods -l app=gateway --no-headers -o json -l app=gateway --no-headers -o json +0ms
-  superlog 6 pods found. +257ms
+  superlog Please wait, loading pod list. +32ms
+  superlog:exec kubectl --namespace=thoughtdata get pods -l app=dashboard --no-headers -o json +1ms
+  superlog:exec kubectl --namespace=thoughtdata get pods -l app=distribution --no-headers -o json +2ms
+  superlog:exec kubectl --namespace=thoughtdata get pods -l app=gateway --no-headers -o json +0ms
+  superlog 6 pods found. +290ms
   superlog please wait, starting log trail... +0ms
-  superlog:exec kubectl --namespace=thoughtdata logs --tail=1 --follow distribution-914390011-mcj7t +0ms
-  superlog:exec kubectl --namespace=thoughtdata logs --tail=1 --follow distribution-914390011-v3s0h +1ms
+  superlog:exec kubectl --namespace=thoughtdata logs --tail=1 --follow distribution-914390011-mcj7t +1ms
+  superlog:exec kubectl --namespace=thoughtdata logs --tail=1 --follow distribution-914390011-v3s0h +0ms
   superlog:exec kubectl --namespace=thoughtdata logs --tail=1 --follow dashboard-1154738117-d78t5 +0ms
   superlog:exec kubectl --namespace=thoughtdata logs --tail=1 --follow dashboard-1154738117-h7w2m +0ms
-  superlog:exec kubectl --namespace=thoughtdata logs --tail=1 --follow gateway-1663823869-dplrz +1ms
+  superlog:exec kubectl --namespace=thoughtdata logs --tail=1 --follow gateway-1663823869-dplrz +0ms
   superlog:exec kubectl --namespace=thoughtdata logs --tail=1 --follow gateway-1663823869-xcl0m +0ms
-
-  distribution-914390011-mcj7t   id: '3ec43718-06fb-49a4-984c-a67160bbd89c' } +344ms
-  dashboard-1154738117-d78t5   Thu, 27 Jul 2017 10:40:41 GMT td:core:amqp:queue <- channel/gateway.reload {} +14ms
-  distribution-914390011-v3s0h   id: '3ec43718-06fb-49a4-984c-a67160bbd89c' } +4ms
-  dashboard-1154738117-h7w2m   Thu, 27 Jul 2017 10:40:42 GMT ioredis:redis write command[0] -> ltrim(td:dashboard:logs,0,199) +7ms
-  gateway-1663823869-dplrz     Thu, 27 Jul 2017 10:40:41 GMT td:core:amqp:channel td.rpc.replyTo.Syf47SDIW deleting queue +3ms
-  gateway-1663823869-xcl0m     Thu, 27 Jul 2017 10:40:41 GMT td:core:amqp:channel -> channel/gateway.reload via td.publish.fanout {} +3ms
-  gateway-1663823869-dplrz     Thu, 27 Jul 2017 10:45:19 GMT td:core:server POST /v1/subscription/http +3s
+  dashboard-1154738117-h7w2m   Thu, 27 Jul 2017 10:50:38 GMT ioredis:redis write command[0] -> ltrim(td:dashboard:logs,0,199) +449ms
+  distribution-914390011-mcj7t   id: '157ff133-8fb4-439f-af33-829eab2458e8' } +1ms
+  distribution-914390011-v3s0h   id: '157ff133-8fb4-439f-af33-829eab2458e8' } +0ms
+  gateway-1663823869-dplrz     Thu, 27 Jul 2017 10:50:38 GMT td:core:amqp:channel td.rpc.replyTo.BkgLtSHwIb deleting queue +1ms
+  gateway-1663823869-xcl0m     Thu, 27 Jul 2017 10:50:38 GMT td:core:amqp:channel -> channel/gateway.reload via td.publish.fanout {} +0ms
+  dashboard-1154738117-d78t5     id: '157ff133-8fb4-439f-af33-829eab2458e8' } +1ms
 ```
