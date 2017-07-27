@@ -32,7 +32,7 @@ Well now you can, with kube-superlog.
 Simply do `npm install -g kube-superlog` and off you go.
 
 ```
-$ ./bin/kube-superlog --namespace thoughtdata --label app=dashboard --label app=distribution --label app=gateway
+$ kube-superlog --namespace thoughtdata --label app=dashboard --label app=distribution --label app=gateway
   superlog Welcome to kube-superlog +0ms
   superlog Logging for namespace=thoughtdata +3ms
   superlog Logging the following labels: +0ms
