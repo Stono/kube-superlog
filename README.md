@@ -58,3 +58,21 @@ $ ./bin/kube-superlog --namespace thoughtdata --label app=dashboard --label app=
   gateway-1663823869-xcl0m     Thu, 27 Jul 2017 10:50:38 GMT td:core:amqp:channel -> channel/gateway.reload via td.publish.fanout {} +0ms
   dashboard-1154738117-d78t5     id: '157ff133-8fb4-439f-af33-829eab2458e8' } +1ms
 ```
+
+Options are:
+```
+$ kube-superlog --help
+
+  Usage: kube-superlog [options]
+
+
+  Options:
+
+    -V, --version                 output the version number
+    -l, --label [your-pod-label]  filter pods by label in an OR manner
+    -n, --namespace [default]     use a namespace other than default
+    -h, --help                    output usage information
+```
+
+## Known Issues
+Currently only works when you have a single contianer in a pod.  If your pod contains multiple containers it'll show an error.  Future versions will show logs from all containers in the pod.
