@@ -1,0 +1,53 @@
+{
+  "name": "kube-superlog",
+  "description": "Streams logs from all your pods at the same time",
+  "version": "0.1.0",
+  "homepage": "https://github.com/Stono/kube-superlog",
+  "author": {
+    "name": "Karl Stoney",
+    "email": "me@karlstoney.com",
+    "url": "https://karlstoney.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Stono/kube-superlog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Stono/kube-superlog/issues"
+  },
+  "main": "index",
+  "engines": {
+    "node": ">= 6.11.1"
+  },
+  "scripts": {
+    "test": "./node_modules/grunt/bin/grunt mochaTest",
+    "start": "node ./bin/kube-superlog",
+    "preinstall": "rm -f package-lock.json",
+    "postinstall": "rm -f package-lock.json"
+  },
+  "bin": {
+    "kube-superlog": "./bin/kube-superlog"
+  },
+  "devDependencies": {
+    "deride": "1.1.0",
+    "grunt": "1.0.1",
+    "grunt-contrib-jshint": "1.1.0",
+    "grunt-contrib-watch": "1.0.0",
+    "grunt-mocha-istanbul": "5.0.2",
+    "grunt-mocha-test": "0.13.2",
+    "istanbul": "0.4.5",
+    "mocha": "3.4.2",
+    "mocha-jenkins-reporter": "0.3.8",
+    "should": "11.2.1"
+  },
+  "keywords": [],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "async": "2.5.0",
+    "colors": "1.1.2",
+    "command-exists": "1.2.2",
+    "commander": "2.11.0",
+    "debug": "2.6.8",
+    "istextorbinary": "2.1.0"
+  }
+}

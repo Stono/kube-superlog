@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+'use strict';
+const program = require('commander');
+const async = require('async');
+const debug = require('debug')('superlog');
+let namespace = 'default';
+let labels = [];
+
+const handleNamespace = value => {
+  namespace = value;
+};
+const handleLabel = label => {
+  labels.push(label);
+};
+
+program
+.version(require('../package.json').version)
+.option('-l, --label [your-pod-label]', 'filter pods by label in an OR manner', handleLabel)
+.option('-n, --namespace [default]', 'use a namespace other than default', handleNamespace)
+.parse(process.argv);
+
+process.env.DEBUG = '*';
+
+const pad = (value, length) => {
+  return (value.toString().length < length) ? pad(value + ' ', length):value;
+};
+
+const kube = new require('../lib/kube')();
+kube.pods(namespace, labels, (err, pods) => {
+  debug(pods.length + ' pods found.');
+  if(pods.length > 0) {
+    debug('please wait, starting log trail...');
+  }
+  const podNames = pods.map(pod => {
+    return pod.metadata.name;
+  }).sort(function(a, b){
+    return b.length - a.length;
+  });
+
+  const outputLogs = (pod, next) => {
+    const name = pad(pod, podNames[0].length);
+    kube.followLog(namespace, name, next);
+  };
+  async.each(podNames, outputLogs);
+});
