@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+process.env.DEBUG = '*';
 'use strict';
 const program = require('commander');
 const async = require('async');
@@ -19,13 +20,20 @@ program
 .option('-n, --namespace [default]', 'use a namespace other than default', handleNamespace)
 .parse(process.argv);
 
-process.env.DEBUG = '*';
-
+debug('Welcome to kube-superlog');
+debug(`Logging for namespace=${namespace}`);
+if(labels.length > 0) {
+  debug('Logging the following labels:');
+  labels.forEach(label => {
+    debug(` - ${label}`);
+  });
+};
 const pad = (value, length) => {
   return (value.toString().length < length) ? pad(value + ' ', length):value;
 };
 
 const kube = new require('../lib/kube')();
+debug('Please wait, loading pod list.');
 kube.pods(namespace, labels, (err, pods) => {
   debug(pods.length + ' pods found.');
   if(pods.length > 0) {
